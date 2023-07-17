@@ -12,7 +12,6 @@ const genders: GenderType[] = ["female", "male", "genderless", "unknown"];
 const Gender = () => {
   const dispatch = useAppDispatch();
 
-  const { currentPage } = useSelector((state: RootState) => state.characters);
   const setFilter = (genderFilter?: GenderType) => {
     if (genderFilter) {
       dispatch(setGender(genderFilter));

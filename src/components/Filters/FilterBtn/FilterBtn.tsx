@@ -19,8 +19,6 @@ const FilterBTN: React.FC<FilterBTNProps> = ({
   item,
   setFilter,
 }) => {
-  const filterParams = useSelector((state: RootState) => state.filters);
-
   return (
     <div>
       <div className="form-check">
