@@ -1,9 +1,10 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { resetToDefaults } from "feature/filter/clear-filters-action";
+
 import Status from "./Categories/Status";
 import Gender from "./Categories/Gender";
 import Species from "./Categories/Species";
-import { useDispatch } from "react-redux";
-import { resetToDefaults } from "feature/filter/clear-filters-action";
+
 const Filters = () => {
   const dispatch = useDispatch();
 

@@ -1,7 +1,10 @@
 import React from "react";
-import styles from "./Card.module.scss";
-import { Character } from "types";
 import { Link } from "react-router-dom";
+
+import { Character } from "types";
+
+import styles from "./Card.module.scss";
+
 interface CardProps extends Character {}
 
 const Card: React.FC<CardProps> = ({ status, name, image, gender, id }) => {

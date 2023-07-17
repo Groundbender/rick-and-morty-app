@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Character } from "types";
-import Error from "components/Error";
 import Spinner from "components/ui/Spinner";
 const SingleCharacter = () => {
   const { id } = useParams();
@@ -18,7 +17,6 @@ const SingleCharacter = () => {
         );
         setChar(data);
       } catch (error) {
-        alert("Error");
         navigate("/");
       }
     })();

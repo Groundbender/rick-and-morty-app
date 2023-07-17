@@ -1,8 +1,9 @@
-import React from "react";
-import FilterBTN from "../FilterBtn/FilterBtn";
-import { GenderType, SpeciesType, StatusType } from "types";
 import { useAppDispatch } from "redux-hooks";
-import { setGender, setSpecies, setStatus } from "feature/filter/filter-slice";
+import { setSpecies } from "feature/filter/filter-slice";
+
+import { SpeciesType } from "types";
+
+import FilterBTN from "../FilterBtn/FilterBtn";
 
 const species: SpeciesType[] = [
   "Human",

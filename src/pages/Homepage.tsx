@@ -1,7 +1,6 @@
 import Filters from "components/Filters/Filters";
 import CardList from "feature/characters/CardsList";
 import React from "react";
-
 const Homepage = () => {
   return (
     <div className="container">

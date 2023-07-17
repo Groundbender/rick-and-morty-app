@@ -1,10 +1,11 @@
-import FilterBTN from "../FilterBtn/FilterBtn";
-import { GenderType } from "types";
 import { useAppDispatch } from "redux-hooks";
+
 import { setGender } from "feature/filter/filter-slice";
 import { RootState } from "store";
-
+import { GenderType } from "types";
 import { useSelector } from "react-redux";
+
+import FilterBTN from "../FilterBtn/FilterBtn";
 
 const genders: GenderType[] = ["female", "male", "genderless", "unknown"];
 

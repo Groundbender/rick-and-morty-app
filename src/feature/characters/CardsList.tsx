@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from "react";
-import Card from "../../components/Card/Card";
 import {
   clearCharacters,
   loadCharacters,
@@ -10,7 +9,8 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "redux-hooks";
 import Spinner from "components/ui/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Error from "components/Error";
+
+import Card from "../../components/Card/Card";
 
 const CardList = () => {
   const dispatch = useAppDispatch();

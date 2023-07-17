@@ -1,9 +1,9 @@
-import React from "react";
-import FilterBTN from "../FilterBtn/FilterBtn";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "redux-hooks";
-import { setGender, setSpecies, setStatus } from "feature/filter/filter-slice";
-import { GenderType, SpeciesType, StatusType } from "types";
+import { setStatus } from "feature/filter/filter-slice";
+import { StatusType } from "types";
+
+import FilterBTN from "../FilterBtn/FilterBtn";
+
 const status: StatusType[] = ["Alive", "Dead", "Unknown"];
 
 const Status = () => {

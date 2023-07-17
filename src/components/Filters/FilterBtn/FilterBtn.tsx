@@ -1,9 +1,11 @@
 import React from "react";
-import "./FilterBtn.scss";
-import { GenderType, SpeciesType, StatusType } from "types";
 
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+
+import { GenderType, SpeciesType, StatusType } from "types";
+
+import "./FilterBtn.scss";
 interface FilterBTNProps {
   name: string;
   index: number;
