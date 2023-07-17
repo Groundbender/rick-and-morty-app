@@ -29,7 +29,7 @@ const SingleCharacter = () => {
   return (
     <div className="container align-middle  ">
       <div
-        className=" d-flex flex-md-column align-items-center w-50 h-50 gap-3  "
+        className=" d-flex flex-lg-row  flex-md-column align-items-center w-50 h-50 gap-3  "
         style={{ margin: "auto" }}
       >
         <div>
