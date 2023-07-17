@@ -2,16 +2,22 @@ import FilterBTN from "../FilterBtn/FilterBtn";
 import { GenderType } from "types";
 import { useAppDispatch } from "redux-hooks";
 import { setGender } from "feature/filter/filter-slice";
+import { RootState } from "store";
+
+import { useSelector } from "react-redux";
+
 const genders: GenderType[] = ["female", "male", "genderless", "unknown"];
 
 const Gender = () => {
   const dispatch = useAppDispatch();
 
+  const { currentPage } = useSelector((state: RootState) => state.characters);
   const setFilter = (genderFilter?: GenderType) => {
     if (genderFilter) {
       dispatch(setGender(genderFilter));
     }
   };
+
   return (
     <div className="accordion-item">
       <h2 className="accordion-header">

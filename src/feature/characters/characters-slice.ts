@@ -1,21 +1,39 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Character, Extra } from "types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { resetToDefaults } from "feature/filter/clear-filters-action";
+import { Character, Extra, GenderType, SpeciesType, StatusType } from "types";
 import { LoadingStatus } from "types";
 
 export const loadCharacters = createAsyncThunk<
   Character[],
-  undefined,
+  {
+    status: StatusType | "";
+    gender: GenderType | "";
+    species: SpeciesType | "";
+  },
   { extra: Extra; rejectValue: string; state: { characters: CharacterSlice } }
 >(
   "@@characters/loadCharacters",
-  async (_, { extra: { client }, rejectWithValue, getState }) => {
+  async (
+    { status, gender, species },
+    { extra: { client }, rejectWithValue, getState }
+  ) => {
     const page = getState().characters.currentPage;
     try {
-      const { data } = await client.get(
-        `https://rickandmortyapi.com/api/character/?page=${page}`
-      );
+      let url = `https://rickandmortyapi.com/api/character/?page=${page}`;
 
-      return data.results;
+      if (status) {
+        url += `&status=${status}`;
+      }
+      if (gender) {
+        url += `&gender=${gender}`;
+      }
+      if (species) {
+        url += `&species=${species}`;
+      }
+
+      const { data } = await client.get(url);
+
+      return data.results as Character[];
     } catch (error) {
       return rejectWithValue("Couldn't fetch");
     }
@@ -23,9 +41,9 @@ export const loadCharacters = createAsyncThunk<
   {
     condition: (_, { getState }) => {
       const {
-        characters: { status },
+        characters: { loadingStatus },
       } = getState();
-      if (status === "loading") {
+      if (loadingStatus === "loading") {
         return false;
       }
     },
@@ -33,13 +51,13 @@ export const loadCharacters = createAsyncThunk<
 );
 
 type CharacterSlice = {
-  status: LoadingStatus;
+  loadingStatus: LoadingStatus;
   characters: Character[];
   currentPage: number;
 };
 
 const initialState: CharacterSlice = {
-  status: "idle",
+  loadingStatus: "idle",
   characters: [],
   currentPage: 1,
 };
@@ -47,19 +65,27 @@ const initialState: CharacterSlice = {
 const charactersSlice = createSlice({
   name: "@@characters",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCharacters(state) {
+      state.characters.splice(0);
+    },
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
       .addCase(loadCharacters.pending, (state) => {
-        state.status = "loading";
+        state.loadingStatus = "loading";
       })
       .addCase(loadCharacters.rejected, (state) => {
-        state.status = "error";
+        state.loadingStatus = "error";
         state.currentPage = 1;
       })
       .addCase(loadCharacters.fulfilled, (state, action) => {
-        state.status = "success";
+        state.loadingStatus = "success";
+
         state.characters = [...state.characters, ...action.payload];
         state.currentPage = state.currentPage + 1;
       });
@@ -67,3 +93,4 @@ const charactersSlice = createSlice({
 });
 
 export const charactersReducer = charactersSlice.reducer;
+export const { clearCharacters, setCurrentPage } = charactersSlice.actions;

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GenderType, StatusType, SpeciesType } from "types";
+import { resetToDefaults } from "./clear-filters-action";
 interface FilterSlice {
   gender: GenderType | "";
   status: StatusType | "";
@@ -25,6 +26,11 @@ const filterSlice = createSlice({
     setSpecies(state, action: PayloadAction<SpeciesType>) {
       state.species = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetToDefaults, () => {
+      return filterSlice.getInitialState();
+    });
   },
 });
 

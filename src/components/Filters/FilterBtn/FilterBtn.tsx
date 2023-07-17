@@ -2,6 +2,8 @@ import React from "react";
 import "./FilterBtn.scss";
 import { GenderType, SpeciesType, StatusType } from "types";
 
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 interface FilterBTNProps {
   name: string;
   index: number;
@@ -15,6 +17,8 @@ const FilterBTN: React.FC<FilterBTNProps> = ({
   item,
   setFilter,
 }) => {
+  const filterParams = useSelector((state: RootState) => state.filters);
+
   return (
     <div>
       <div className="form-check">
