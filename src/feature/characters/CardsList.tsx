@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "redux-hooks";
 import Spinner from "components/ui/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Error from "components/Error";
 
 const CardList = () => {
   const dispatch = useAppDispatch();
@@ -35,26 +36,29 @@ const CardList = () => {
     return characters.map((item) => <Card {...item} key={item.id} />);
   };
 
-  const cards = renderChars();
+  const cards = useMemo(
+    () => renderChars(),
+    [currentPage, gender, status, species]
+  );
 
   return (
-    <InfiniteScroll
-      dataLength={characters.length}
-      next={loadModeCharacters}
-      hasMore={loadingStatus === "success" || loadingStatus === "loading"}
-      loader={<Spinner />}
-      endMessage={
-        <p style={{ textAlign: "center" }}>
-          <b>Yay! You have seen it all</b>
-        </p>
-      }
-    >
-      <div>
+    <>
+      <InfiniteScroll
+        dataLength={characters.length}
+        next={loadModeCharacters}
+        hasMore={loadingStatus === "success" || loadingStatus === "loading"}
+        loader={<Spinner />}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b className="text-primary">Yay! You have seen it all</b>
+          </p>
+        }
+      >
         <div className="row" style={{ width: "100%" }}>
           {cards}
         </div>
-      </div>
-    </InfiniteScroll>
+      </InfiniteScroll>
+    </>
   );
 };
 
